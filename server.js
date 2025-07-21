@@ -1,25 +1,16 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const PORT = 3000;
+const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
-// Importing routes
-const userRoutes = require("./routes/userRoutes");
-const productRoutes = require("./routes/productRoutes");
-const cartRoutes = require("./routes/cartRoutes");
-
-// Middleware to parse JSON
 app.use(express.json());
 
-// Using route files
-app.use("/users", userRoutes);
-app.use("/products", productRoutes);
-app.use("/cart", cartRoutes);
+// Routes
+app.use(productRoutes);
+app.use(userRoutes);
+app.use(cartRoutes);
 
-// Handle undefined routes (404)
-app.use((req, res) => {
-  res.status(404).send("<h1>404 - Page Not Found</h1>");
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
 });
