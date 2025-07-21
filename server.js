@@ -1,16 +1,18 @@
-const express = require('express');
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Needed for __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-const productRoutes = require('./routes/productRoutes');
-const userRoutes = require('./routes/userRoutes');
-const cartRoutes = require('./routes/cartRoutes');
+const port = 3000;
 
-app.use(express.json());
+app.get("/api/products", (req, res) => {
+  res.sendFile(path.join(__dirname, "view", "products.html"));
+});
 
-// Routes
-app.use(productRoutes);
-app.use(userRoutes);
-app.use(cartRoutes);
-
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(port, () => {
+  console.log(`🚀 Server running at http://localhost:${port}`);
 });
